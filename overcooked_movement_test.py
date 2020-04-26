@@ -13,27 +13,35 @@ def alt_tab():
 
 
 def move(direction, dash=False):
-    if dash:
-        pyautogui.keyDown(direction)
-        sleep(0.2)
-        pyautogui.keyDown('shift')
-        pyautogui.keyUp(direction)
-        pyautogui.keyUp('shift')
-    else:
-        pyautogui.press(direction)
+    """ Moves in the direction (up, down, left, right), total movement is 1 tile """
+    pyautogui.keyDown(direction)
+    sleep(0.15)
+    pyautogui.keyUp(direction)
 
 
 def dash(direction):
+    """ Dashes in the direction (up, down, left, right), total movement is 3 tiles """
     pyautogui.keyDown(direction)
-    sleep(0.2)
+    sleep(0.05)
     pyautogui.keyDown('shift')
     pyautogui.keyUp(direction)
     pyautogui.keyUp('shift')
 
+def pickup_drop():
+    """ Pick up/drop item """
+    pyautogui.press('space')
+
+
+def chop_throw():
+    """ Chop/throw """
+    pyautogui.press('j')
+
+
 if __name__ == '__main__':
     alt_tab()
-    sleep(1)
-    dash('up')
-    sleep(1)
-    dash('down')
+    for _ in range(10):
+        pickup_drop()
+        dash('left')
+        chop_throw()
+        dash('right')
     alt_tab()
